@@ -27,6 +27,7 @@ function App() {
     data.map((user) => ({
       ...user,
       editMode: false,
+
       originalGender: user.gender,
       originalCountry: user.country,
       originalDescription: user.description,
@@ -46,8 +47,8 @@ function App() {
           ? {
               ...user,
               editMode: !user.editMode,
-
               age: user.editMode ? calculateAge(user.dob) : user.age,
+
               gender: user.editMode ? user.gender : user.originalGender,
               country: user.editMode ? user.country : user.originalCountry,
               description: user.editMode
@@ -66,6 +67,7 @@ function App() {
           ? {
               ...user,
               editMode: false,
+              age: user.age,
               originalGender: user.gender,
               originalCountry: user.country,
               originalDescription: user.description,
@@ -89,40 +91,6 @@ function App() {
           : user
       )
     );
-  };
-
-  const handleInputChange = (e, userId) => {
-    const { value, name } = e.target;
-    const isAgeField = name === "age";
-    const isCountryField = name === "country";
-
-    if (isAgeField) {
-      if (isNumber(value) || value === "") {
-        setDataWithEditMode((prevData) =>
-          prevData.map((u) =>
-            u.id === userId
-              ? {
-                  ...u,
-                  age: value === "" ? "" : parseInt(value),
-                }
-              : u
-          )
-        );
-      }
-    } else if (isCountryField) {
-      if (!isNumber(value)) {
-        setDataWithEditMode((prevData) =>
-          prevData.map((u) =>
-            u.id === userId
-              ? {
-                  ...u,
-                  country: value,
-                }
-              : u
-          )
-        );
-      }
-    }
   };
 
   const [itemToDelete, setItemToDelete] = useState(null);
@@ -208,8 +176,19 @@ function App() {
                         value={
                           user.editMode ? user.age : calculateAge(user.dob)
                         }
-                        onChange={(e) => handleInputChange(e, user.id)}
                         readOnly={!user.editMode}
+                        onChange={(e) =>
+                          setDataWithEditMode((prevData) =>
+                            prevData.map((u) =>
+                              u.id === user.id
+                                ? {
+                                    ...u,
+                                    age: parseInt(e.target.value),
+                                  }
+                                : u
+                            )
+                          )
+                        }
                       />
                     </div>
                     <div>
@@ -237,8 +216,18 @@ function App() {
                           }
                         >
                           <option>{user.gender}</option>
-                          <option>female</option>
-                          <option>Rather not say</option>
+
+                          {user.gender === "male" ? (
+                            <>
+                              <option>female</option>
+                              <option>Rather not say</option>
+                            </>
+                          ) : (
+                            <>
+                              <option>male</option>
+                              <option>Rather not say</option>
+                            </>
+                          )}
                         </select>
                       ) : (
                         <p style={{ fontSize: "14px" }}>{user.gender}</p>
@@ -247,7 +236,6 @@ function App() {
                     <div>
                       <p>Country</p>
                       <input
-                        onChange={(e) => handleInputChange(e, user.id)}
                         style={{
                           border: user.editMode ? "1px solid #ccc" : "none",
                         }}
@@ -255,6 +243,18 @@ function App() {
                         type="text"
                         value={user.country}
                         readOnly={!user.editMode}
+                        onChange={(e) =>
+                          setDataWithEditMode((prevData) =>
+                            prevData.map((u) =>
+                              u.id === user.id
+                                ? {
+                                    ...u,
+                                    country: e.target.value,
+                                  }
+                                : u
+                            )
+                          )
+                        }
                       />
                     </div>
                   </div>
