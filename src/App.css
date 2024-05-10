@@ -1,0 +1,208 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins";
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.search-input {
+  border-radius: 9px;
+  border-width: 1px;
+  width: 510px;
+  padding-left: 35px;
+  height: 30px;
+  outline: 0;
+  margin-bottom: 8px;
+}
+
+.search-input {
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  top: 35px;
+  left: 434px;
+}
+
+.pic {
+  border-radius: 30px;
+  height: 55px;
+  width: 55px;
+  margin-right: 16px;
+}
+
+.header-acc {
+  display: flex;
+}
+
+.border {
+  border: 1px solid #ccc;
+  height: 400px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  width: 510px;
+  padding-left: 20px;
+}
+
+.header-acc {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.user-info {
+  display: flex;
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 12px;
+  margin-right: 12px;
+}
+
+.age-in {
+  border-radius: 10px;
+  border-width: 1px;
+  outline: none;
+  width: 130px;
+  height: 20px;
+  padding: 10px;
+}
+
+.gender {
+  width: 130px;
+  border-radius: 10px;
+}
+
+.country-in {
+  width: 130px;
+  border-radius: 10px;
+  border-width: 1px;
+  outline: none;
+  padding: 10px;
+  height: 20px;
+}
+
+.description {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.description textarea {
+  height: 180px;
+  width: 450px;
+  line-height: 25px;
+  padding: 6px;
+  border-radius: 12px;
+}
+
+.icons {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 30px;
+  margin-top: 20px;
+  gap: 14px;
+}
+
+.description {
+  position: relative;
+}
+
+.icons {
+  position: absolute;
+  bottom: 20px;
+  left: 380px;
+}
+
+.edit-icons {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 38px;
+  gap: 14px;
+  font-size: 20px;
+  margin-top: 5px;
+}
+
+.cross {
+  color: rgb(238, 85, 85);
+}
+.correct {
+  color: rgb(41, 233, 41);
+}
+
+.accordion-content {
+  border-top: none;
+  display: none;
+}
+
+.accordion-content.open {
+  display: block;
+}
+
+.border.closed {
+  max-height: 70px;
+  overflow: hidden;
+}
+
+.delete-dialog {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  width: 500px;
+  height: 150px;
+  border-radius: 10px;
+  border: 1px solid gray;
+}
+
+.delete-text {
+  display: flex;
+  justify-content: space-between;
+}
+
+.delete-btns {
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+}
+
+.cancel-btn {
+  height: 38px;
+  width: 100px;
+  border-radius: 10px;
+  border-width: 0;
+  border: 1px solid gray;
+  cursor: pointer;
+}
+
+.confirm-btn {
+  height: 38px;
+  width: 100px;
+  border-radius: 10px;
+  border-width: 0;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+}
