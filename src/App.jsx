@@ -27,6 +27,7 @@ function App() {
     data.map((user) => ({
       ...user,
       editMode: false,
+      originalAge: calculateAge(user.dob),
 
       originalGender: user.gender,
       originalCountry: user.country,
@@ -47,7 +48,7 @@ function App() {
           ? {
               ...user,
               editMode: !user.editMode,
-              age: user.editMode ? calculateAge(user.dob) : user.age,
+              age: user.editMode ? user.age : user.originalAge,
 
               gender: user.editMode ? user.gender : user.originalGender,
               country: user.editMode ? user.country : user.originalCountry,
@@ -67,7 +68,8 @@ function App() {
           ? {
               ...user,
               editMode: false,
-              age: user.age,
+
+              originalAge: user.age,
               originalGender: user.gender,
               originalCountry: user.country,
               originalDescription: user.description,
@@ -84,6 +86,7 @@ function App() {
           ? {
               ...user,
               editMode: false,
+              age: user.originalAge,
               gender: user.originalGender,
               country: user.originalCountry,
               description: user.originalDescription,
@@ -97,6 +100,19 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
+  };
+
+  const handleCountryInputChange = (e, id) => {
+    const userInput = e.target.value;
+
+    const regex = /^[a-zA-Z\s]*$/;
+    if (regex.test(userInput) || userInput === "") {
+      setDataWithEditMode((prevData) =>
+        prevData.map((user) =>
+          user.id === id ? { ...user, country: userInput } : user
+        )
+      );
+    }
   };
 
   const filteredData = dataWithEditMode.filter((user) =>
@@ -161,7 +177,7 @@ function App() {
                 </div>
                 <div
                   className={`accordion-content ${
-                    openAccordionId === user.id ? "open" : ""
+                    openAccordionId === user.id ? "open" : "closed"
                   }`}
                 >
                   <div className="details">
@@ -173,9 +189,7 @@ function App() {
                         }}
                         className="age-in"
                         type="number"
-                        value={
-                          user.editMode ? user.age : calculateAge(user.dob)
-                        }
+                        value={user.editMode ? user.age : user.originalAge}
                         readOnly={!user.editMode}
                         onChange={(e) =>
                           setDataWithEditMode((prevData) =>
@@ -243,18 +257,7 @@ function App() {
                         type="text"
                         value={user.country}
                         readOnly={!user.editMode}
-                        onChange={(e) =>
-                          setDataWithEditMode((prevData) =>
-                            prevData.map((u) =>
-                              u.id === user.id
-                                ? {
-                                    ...u,
-                                    country: e.target.value,
-                                  }
-                                : u
-                            )
-                          )
-                        }
+                        onChange={(e) => handleCountryInputChange(e, user.id)}
                       />
                     </div>
                   </div>
